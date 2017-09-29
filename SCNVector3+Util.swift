@@ -39,11 +39,24 @@ extension SCNVector3 {
     }
   }
 
-  var normalize: SCNVector3 {
+  var normalized: SCNVector3 {
     get {
       return self / self.magnitude
     }
   }
+
+}
+
+extension SCNVector3 {
+
+  static func magnitude(_ vector: SCNVector3) -> Float {
+    return vector.magnitude
+  }
+  
+  static func normalized(_ vector: SCNVector3) -> SCNVector3 {
+    return vector.normalized
+  }
+
 }
 
 func <(lhs: SCNVector3, rhs: SCNVector3) -> Bool {
