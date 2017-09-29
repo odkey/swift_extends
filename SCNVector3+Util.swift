@@ -34,6 +34,16 @@ extension SCNVector3 {
   static func normalized(_ vector: SCNVector3) -> SCNVector3 {
     return vector.normalized
   }
+  
+  func dot(_ vector: SCNVector3) -> Float {
+    return self.x * vector.x + self.y * vector.y + self.z * vector.z
+  }
+  
+  func cross(_ vector: SCNVector3) -> SCNVector3 {
+    return SCNVector3.init(self.y * vector.z - self.z * vector.y,
+                           self.z * vector.x - self.x * vector.z,
+                           self.x * vector.y - self.y * vector.x)
+  }
 
 }
 
