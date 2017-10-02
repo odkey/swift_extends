@@ -25,8 +25,38 @@ extension SCNVector3 {
 
 }
 
+// MARK: - Member Methods
+
 extension SCNVector3 {
 
+  func distance(_ vector: SCNVector3) -> Float {
+    return SCNVector3.distance(self, vector)
+  }
+  
+  func distance_squared(_ vector: SCNVector3) -> Float {
+    return SCNVector3.distance_squared(self, vector)
+  }
+  
+  func cross(_ vector: SCNVector3) -> SCNVector3 {
+    return SCNVector3(self.y * vector.z - self.z * vector.y,
+                      self.z * vector.x - self.x * vector.z,
+                      self.x * vector.y - self.y * vector.x)
+  }
+  
+  func dot(_ vector: SCNVector3) -> Float {
+    return self.x * vector.x + self.y * vector.y + self.z * vector.z
+  }
+
+}
+
+// MARK: - Static Methods
+
+extension SCNVector3 {
+  
+  static func zero() -> SCNVector3 {
+    return SCNVector3(0.0, 0.0, 0.0)
+  }
+  
   static func magnitude(_ vector: SCNVector3) -> Float {
     return vector.magnitude
   }
@@ -35,16 +65,23 @@ extension SCNVector3 {
     return vector.normalized
   }
   
-  func dot(_ vector: SCNVector3) -> Float {
-    return self.x * vector.x + self.y * vector.y + self.z * vector.z
+  static func distance(_ lhs: SCNVector3, _ rhs: SCNVector3) -> Float {
+    return (lhs - rhs).magnitude
   }
   
-  func cross(_ vector: SCNVector3) -> SCNVector3 {
-    return SCNVector3.init(self.y * vector.z - self.z * vector.y,
-                           self.z * vector.x - self.x * vector.z,
-                           self.x * vector.y - self.y * vector.x)
+  static func distance_squared(_ lhs: SCNVector3, _ rhs: SCNVector3) -> Float {
+    let vector = lhs - rhs
+    return vector.x * vector.x + vector.y * vector.y + vector.z * vector.z
   }
-
+  
+  static func cross(_ lhs: SCNVector3, _ rhs: SCNVector3) -> SCNVector3 {
+    return lhs.cross(rhs)
+  }
+  
+  static func dot(_ lhs: SCNVector3, _ rhs: SCNVector3) -> Float {
+    return lhs.dot(rhs)
+  }
+  
 }
 
 // MARK: - Operators
