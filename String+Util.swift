@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Member Variables
+
 extension String {
 
   var url: URL? {
@@ -16,6 +18,8 @@ extension String {
   }
 
 }
+
+// MARK: - Member Methods
 
 extension String {
 

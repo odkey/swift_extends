@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - Member Methods
+
 extension UIView {
 
   func removeAllSubview() {

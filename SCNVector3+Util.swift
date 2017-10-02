@@ -7,7 +7,7 @@
 
 import SceneKit
 
-// MARK: - Calculation
+// MARK: - Member Variables
 
 extension SCNVector3 {
 

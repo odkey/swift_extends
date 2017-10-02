@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Static Variables
+
 extension NSObject {
 
   static var className: String {
@@ -16,6 +18,8 @@ extension NSObject {
   }
 
 }
+
+// MARK: - Member Variables
 
 extension NSObject {
 

@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - Member Variables
+
 extension UIViewController {
 
   var boundsWidth: CGFloat {
@@ -35,6 +37,8 @@ extension UIViewController {
 
 }
 
+// MARK: - Member Methods
+
 extension UIViewController {
 
   func removeAllSubviewOf(_ parentView: UIView) {
@@ -47,5 +51,5 @@ extension UIViewController {
   func removeAllSubview() {
     self.removeAllSubviewOf(self.view)
   }
-  
+
 }
