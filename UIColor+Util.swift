@@ -7,6 +7,8 @@
 
 import UIKit
 
+// MARK: - Convenience Constructor
+
 extension UIColor {
 
   convenience init(_ hex: Int, _ alpha: CGFloat = 1.0) {
@@ -16,4 +18,10 @@ extension UIColor {
     self.init(red: r, green: g, blue: b, alpha: alpha)
   }
 
+  convenience init(red255: CGFloat, green255: CGFloat, blue255: CGFloat,
+                   _ alpha: CGFloat) {
+    self.init(red: red255/255.0, green: green255/255.0, blue: blue255/255.0,
+              alpha: alpha)
+  }
+  
 }
