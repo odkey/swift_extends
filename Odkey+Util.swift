@@ -35,7 +35,9 @@ class Odkey {
 
   class Numeric {
     // Static member
-    static let pi = Double.pi
+    static var pi: Double {
+      return Double.pi
+    }
 
     // Static Methods
     static func randomNumber(_ min: Float, _ max: Float) -> Float {
