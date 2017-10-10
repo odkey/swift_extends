@@ -42,4 +42,21 @@ extension UIImage {
     return resizedImage!
   }
   
+  static func imageBufferToUIImage(pixelBuffer: CVPixelBuffer) -> UIImage {
+    let ciImage = CIImage.init(cvPixelBuffer: pixelBuffer)
+    
+    let pixelBufferWidth = CGFloat(CVPixelBufferGetWidth(pixelBuffer))
+    let pixelBufferHeight = CGFloat(CVPixelBufferGetHeight(pixelBuffer))
+    let imageRect =
+      CGRect(x: 0, y: 0, width: pixelBufferWidth, height: pixelBufferHeight)
+    
+    let ciContext = CIContext.init()
+    
+    let cgImage = ciContext.createCGImage(ciImage, from: imageRect )
+    
+    let image = UIImage(cgImage: cgImage!)
+    return image
+    
+  }
+  
 }
