@@ -25,7 +25,7 @@
 //  IN THE SOFTWARE.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - Member Methods
 
