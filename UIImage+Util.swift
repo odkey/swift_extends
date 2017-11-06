@@ -26,6 +26,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 // MARK: - Member Methods
 
@@ -57,6 +58,29 @@ extension UIImage {
     let image = UIImage(cgImage: cgImage!)
     return image
     
+  }
+  
+  static func sampleBufferToUIImage(sampleBuffer: CMSampleBuffer) -> UIImage {
+    let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+    CVPixelBufferLockBaseAddress(imageBuffer!,
+                                 CVPixelBufferLockFlags(rawValue: 0))
+    let baseAddress = CVPixelBufferGetBaseAddress(imageBuffer!)
+    let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer!)
+    let width = CVPixelBufferGetWidth(imageBuffer!)
+    let height = CVPixelBufferGetHeight(imageBuffer!)
+    let colorSpace = CGColorSpaceCreateDeviceRGB()
+    let bitmapInfo =
+      CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipFirst.rawValue |
+                               CGBitmapInfo.byteOrder32Little.rawValue)
+    let context = CGContext(data: baseAddress, width: width, height: height,
+                            bitsPerComponent: 8, bytesPerRow: bytesPerRow,
+                            space: colorSpace,
+                            bitmapInfo: bitmapInfo.rawValue)
+    let quartzImage = context!.makeImage()
+    CVPixelBufferUnlockBaseAddress(imageBuffer!,
+                                   CVPixelBufferLockFlags(rawValue: 0))
+    let image = UIImage(cgImage: quartzImage!)
+    return image
   }
   
 }
