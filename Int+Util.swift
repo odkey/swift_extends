@@ -1,7 +1,7 @@
 //
-//  SCNQuaternion+Util.swift
+//  Int+Util.swift
 //
-//  Created by Yota Odaka on 2017/10/13.
+//  Created by Yota Odaka on 2018/03/02.
 //
 //  The MIT License (MIT)
 //  Copyright (c) 2017 Yota Odaka
@@ -25,38 +25,34 @@
 //  IN THE SOFTWARE.
 //
 
-import SceneKit
+extension Int {
 
-extension SCNQuaternion {
-
-  static func eulerToQuaternion(euler: SCNVector3) -> SCNQuaternion {
-    let cy = cos(euler.y/2.0)
-    let sy = sin(euler.y/2.0)
-    let cr = cos(euler.z/2.0)
-    let sr = sin(euler.z/2.0)
-    let cp = cos(euler.x/2.0)
-    let sp = sin(euler.x/2.0)
-
-    return SCNQuaternion(x: cy * sr * cp - sy * cr * sp,
-                         y: cy * cr * sp + sy * sr * cp,
-                         z: sy * cr * cp - cy * sr * sp,
-                         w: cy * cr * cp + sy * sr * sp)
-  
+  static func +=(lhs: inout Int, rhs: Int) {
+    lhs = lhs + rhs
   }
 
-  static func eulerToQuaternion(euler: vector_float3) -> SCNQuaternion {
-    let cy = cos(euler.y/2.0)
-    let sy = sin(euler.y/2.0)
-    let cr = cos(euler.z/2.0)
-    let sr = sin(euler.z/2.0)
-    let cp = cos(euler.x/2.0)
-    let sp = sin(euler.x/2.0)
+  static func -=(lhs: inout Int, rhs: Int) {
+    lhs = lhs - rhs
+  }
 
-    return SCNQuaternion(x: cy * sr * cp - sy * cr * sp,
-                         y: cy * cr * sp + sy * sr * cp,
-                         z: sy * cr * cp - cy * sr * sp,
-                         w: cy * cr * cp + sy * sr * sp)
+  static func *=(lhs: inout Int, rhs: Int) {
+    lhs = lhs * rhs
+  }
   
+  static func /=(lhs: inout Int, rhs: Int) {
+    lhs = lhs / rhs
+  }
+  
+  static func %=(lhs: inout Int, rhs: Int) {
+    lhs = lhs % rhs
+  }
+
+  func hexStr(_ digit: Int = 2) -> String {
+    var hex = String(self, radix: 16)
+    while hex.count < digit {
+      hex = "0" + hex
+    }
+    return hex
   }
 
 }

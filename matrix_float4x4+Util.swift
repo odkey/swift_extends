@@ -1,7 +1,7 @@
 //
-//  SCNQuaternion+Util.swift
+//  matrix_float4x4+Util.swift
 //
-//  Created by Yota Odaka on 2017/10/13.
+//  Created by Yota Odaka on 2018/03/01.
 //
 //  The MIT License (MIT)
 //  Copyright (c) 2017 Yota Odaka
@@ -27,36 +27,14 @@
 
 import SceneKit
 
-extension SCNQuaternion {
+extension matrix_float4x4 {
 
-  static func eulerToQuaternion(euler: SCNVector3) -> SCNQuaternion {
-    let cy = cos(euler.y/2.0)
-    let sy = sin(euler.y/2.0)
-    let cr = cos(euler.z/2.0)
-    let sr = sin(euler.z/2.0)
-    let cp = cos(euler.x/2.0)
-    let sp = sin(euler.x/2.0)
-
-    return SCNQuaternion(x: cy * sr * cp - sy * cr * sp,
-                         y: cy * cr * sp + sy * sr * cp,
-                         z: sy * cr * cp - cy * sr * sp,
-                         w: cy * cr * cp + sy * sr * sp)
-  
+  static func position(_ matrix: matrix_float4x4) -> SCNVector3 {
+    return matrix.position()
   }
 
-  static func eulerToQuaternion(euler: vector_float3) -> SCNQuaternion {
-    let cy = cos(euler.y/2.0)
-    let sy = sin(euler.y/2.0)
-    let cr = cos(euler.z/2.0)
-    let sr = sin(euler.z/2.0)
-    let cp = cos(euler.x/2.0)
-    let sp = sin(euler.x/2.0)
-
-    return SCNQuaternion(x: cy * sr * cp - sy * cr * sp,
-                         y: cy * cr * sp + sy * sr * cp,
-                         z: sy * cr * cp - cy * sr * sp,
-                         w: cy * cr * cp + sy * sr * sp)
-  
+  func position() -> SCNVector3 {
+    return SCNVector3(columns.3.x, columns.3.y, columns.3.z)
   }
 
 }

@@ -1,7 +1,7 @@
 //
-//  SCNQuaternion+Util.swift
+//  SCNNode+Util.swift
 //
-//  Created by Yota Odaka on 2017/10/13.
+//  Created by Yota Odaka on 2018/02/25.
 //
 //  The MIT License (MIT)
 //  Copyright (c) 2017 Yota Odaka
@@ -25,38 +25,21 @@
 //  IN THE SOFTWARE.
 //
 
+import UIKit
 import SceneKit
 
-extension SCNQuaternion {
+extension SCNNode {
 
-  static func eulerToQuaternion(euler: SCNVector3) -> SCNQuaternion {
-    let cy = cos(euler.y/2.0)
-    let sy = sin(euler.y/2.0)
-    let cr = cos(euler.z/2.0)
-    let sr = sin(euler.z/2.0)
-    let cp = cos(euler.x/2.0)
-    let sp = sin(euler.x/2.0)
-
-    return SCNQuaternion(x: cy * sr * cp - sy * cr * sp,
-                         y: cy * cr * sp + sy * sr * cp,
-                         z: sy * cr * cp - cy * sr * sp,
-                         w: cy * cr * cp + sy * sr * sp)
-  
+  func searchFirstAncestorWithName(_ name: String) -> SCNNode? {
+    guard let parent = self.parent else { return nil }
+    if parent.name == name { return parent }
+    return parent.searchFirstAncestorWithName(name)
   }
 
-  static func eulerToQuaternion(euler: vector_float3) -> SCNQuaternion {
-    let cy = cos(euler.y/2.0)
-    let sy = sin(euler.y/2.0)
-    let cr = cos(euler.z/2.0)
-    let sr = sin(euler.z/2.0)
-    let cp = cos(euler.x/2.0)
-    let sp = sin(euler.x/2.0)
-
-    return SCNQuaternion(x: cy * sr * cp - sy * cr * sp,
-                         y: cy * cr * sp + sy * sr * cp,
-                         z: sy * cr * cp - cy * sr * sp,
-                         w: cy * cr * cp + sy * sr * sp)
-  
+  func searchSelfOrFirstAncestorWithName(_ name: String) -> SCNNode? {
+    if self.name == name { return self }
+    guard let parent = self.parent else { return nil }
+    return parent.searchSelfOrFirstAncestorWithName(name)
   }
 
 }
