@@ -25,6 +25,8 @@
 //  IN THE SOFTWARE.
 //
 
+import Foundation
+
 extension Int {
 
   static func +=(lhs: inout Int, rhs: Int) {
@@ -38,13 +40,35 @@ extension Int {
   static func *=(lhs: inout Int, rhs: Int) {
     lhs = lhs * rhs
   }
-  
+
   static func /=(lhs: inout Int, rhs: Int) {
     lhs = lhs / rhs
   }
-  
+
   static func %=(lhs: inout Int, rhs: Int) {
     lhs = lhs % rhs
+  }
+
+  static prefix func ++(num: inout Int) -> Int {
+    num += 1
+    return num
+  }
+
+  static postfix func ++(num: inout Int) -> Int {
+    let num_ = num
+    num += 1
+    return num_
+  }
+
+  static prefix func --(num: inout Int) -> Int {
+    num -= 1
+    return num
+  }
+
+  static postfix func --(num: inout Int) -> Int {
+    let num_ = num
+    num -= 1
+    return num_
   }
 
   func hexStr(_ digit: Int = 2) -> String {
@@ -53,6 +77,17 @@ extension Int {
       hex = "0" + hex
     }
     return hex
+  }
+
+  func splitedStr(_ separator: String = ",", _ groupSize: Int = 3) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.groupingSeparator = separator
+    formatter.groupingSize = groupSize
+    guard let str = formatter.string(from: NSNumber(value: self)) else {
+      return "cannot convert Int to String"
+    }
+    return str
   }
 
 }
