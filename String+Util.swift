@@ -39,6 +39,41 @@ extension String {
 
 }
 
+// MARK: - Static Methods
+
+extension String {
+
+  static func convertNumberIntoPercentNotation(
+      _ num: Float, with decimalDigits: Int = 0) -> String {
+    return self.convertNumberIntoPercentNotation(Double(num),
+                                                 with: decimalDigits)
+  }
+
+  static func convertNumberIntoPercentNotation(
+      _ num: Double, with decimalDigits: Int = 0) -> String {
+    var digits = decimalDigits
+    if digits < 0 { digits = 0 }
+    let powered = String(Int(num * pow(10.0, Double(digits + 2))))
+    if powered == "0" {
+      if digits == 0 {
+        return "0"
+      }
+      var result = "0."
+      for _ in 0..<digits {
+        result = result + "0"
+      }
+      return result
+    }
+    let integer = powered.prefix(powered.count - digits)
+    if digits == 0 {
+      return "\(integer)"
+    }
+    let decimal = powered.suffix(digits)
+    return "\(integer).\(decimal)"
+  }
+
+}
+
 // MARK: - Member Methods
 
 extension String {
