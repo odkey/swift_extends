@@ -31,7 +31,7 @@ import Foundation
 
 extension NSObject {
 
-  static var className: String {
+  static var nameOfClass: String {
     get {
       return String(describing: self)
     }
@@ -45,7 +45,7 @@ extension NSObject {
 
   var className: String {
     get {
-      return type(of: self).className
+      return type(of: self).nameOfClass
     }
   }
 
