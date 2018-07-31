@@ -25,7 +25,12 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(iOS)
+  
 import UIKit
+  
+#endif
+
 import SceneKit
 
 extension SCNNode {
