@@ -33,7 +33,7 @@ extension SCNVector3 {
 
   var magnitude: Float {
     get {
-      return sqrt(self.x * self.x + self.y * self.y + self.z * self.z)
+      return Float(sqrt(self.x * self.x + self.y * self.y + self.z * self.z))
     }
   }
 
@@ -64,7 +64,7 @@ extension SCNVector3 {
   }
   
   func dot(_ vector: SCNVector3) -> Float {
-    return self.x * vector.x + self.y * vector.y + self.z * vector.z
+    return Float(self.x * vector.x + self.y * vector.y + self.z * vector.z)
   }
 
 }
@@ -91,7 +91,7 @@ extension SCNVector3 {
   
   static func distance_squared(_ lhs: SCNVector3, _ rhs: SCNVector3) -> Float {
     let vector = lhs - rhs
-    return vector.x * vector.x + vector.y * vector.y + vector.z * vector.z
+    return Float(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
   }
   
   static func cross(_ lhs: SCNVector3, _ rhs: SCNVector3) -> SCNVector3 {
@@ -115,15 +115,15 @@ func -(lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
 }
 
 func *(lhs: SCNVector3, rhs: Float) -> SCNVector3 {
-  return SCNVector3(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs)
+  return SCNVector3(lhs.x * CGFloat(rhs), lhs.y * CGFloat(rhs), lhs.z * CGFloat(rhs))
 }
 
 func *(lhs: Float, rhs: SCNVector3) -> SCNVector3 {
-  return SCNVector3(lhs * rhs.x, lhs * rhs.y, lhs * rhs.z)
+  return SCNVector3(CGFloat(lhs) * rhs.x, CGFloat(lhs) * rhs.y, CGFloat(lhs) * rhs.z)
 }
 
 func /(lhs: SCNVector3, rhs: Float) -> SCNVector3 {
-  return SCNVector3(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs)
+  return SCNVector3(lhs.x / CGFloat(rhs), lhs.y / CGFloat(rhs), lhs.z / CGFloat(rhs))
 }
 
 func +=( lhs: inout SCNVector3, rhs: SCNVector3) {

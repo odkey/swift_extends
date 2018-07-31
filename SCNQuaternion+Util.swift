@@ -52,10 +52,10 @@ extension SCNQuaternion {
     let cp = cos(euler.x/2.0)
     let sp = sin(euler.x/2.0)
 
-    return SCNQuaternion(x: cy * sr * cp - sy * cr * sp,
-                         y: cy * cr * sp + sy * sr * cp,
-                         z: sy * cr * cp - cy * sr * sp,
-                         w: cy * cr * cp + sy * sr * sp)
+    return SCNQuaternion(x: CGFloat(cy * sr * cp - sy * cr * sp),
+                         y: CGFloat(cy * cr * sp + sy * sr * cp),
+                         z: CGFloat(sy * cr * cp - cy * sr * sp),
+                         w: CGFloat(cy * cr * cp + sy * sr * sp))
   
   }
 
