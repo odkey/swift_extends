@@ -51,12 +51,17 @@ extension SCNQuaternion {
     let sr = sin(euler.z/2.0)
     let cp = cos(euler.x/2.0)
     let sp = sin(euler.x/2.0)
-
+#if os (OSX)
     return SCNQuaternion(x: CGFloat(cy * sr * cp - sy * cr * sp),
                          y: CGFloat(cy * cr * sp + sy * sr * cp),
                          z: CGFloat(sy * cr * cp - cy * sr * sp),
                          w: CGFloat(cy * cr * cp + sy * sr * sp))
-  
+#else
+    return SCNQuaternion(x: cy * sr * cp - sy * cr * sp,
+                         y: cy * cr * sp + sy * sr * cp,
+                         z: sy * cr * cp - cy * sr * sp,
+                         w: cy * cr * cp + sy * sr * sp)
+#endif
   }
 
 }

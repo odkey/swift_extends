@@ -1,5 +1,5 @@
 //
-//  UIColor+Util.swift
+//  UIViewController+Util.swift
 //
 //  Created by Yota Odaka on 2017/10/02.
 //
@@ -25,23 +25,51 @@
 //  IN THE SOFTWARE.
 //
 
-import UIKit
+import CoreGraphics
 
-// MARK: - Convenience Constructor
+// MARK: - Member Variables
 
-extension UIColor {
+extension XViewController {
 
-  convenience init(_ hex: Int, _ alpha: CGFloat = 1.0) {
-    let r = CGFloat((hex & 0xFF0000) >> 16) / 255.0
-    let g = CGFloat((hex & 0x00FF00) >> 8) / 255.0
-    let b = CGFloat((hex & 0x0000FF)) / 255.0
-    self.init(red: r, green: g, blue: b, alpha: alpha)
-  }
-
-  convenience init(red255: CGFloat, green255: CGFloat, blue255: CGFloat,
-                   _ alpha: CGFloat) {
-    self.init(red: red255/255.0, green: green255/255.0, blue: blue255/255.0,
-              alpha: alpha)
+  var boundsWidth: CGFloat {
+    get {
+      return self.view.bounds.width
+    }
   }
   
+  var boundsHeight: CGFloat {
+    get {
+      return self.view.bounds.height
+    }
+  }
+  
+  var screenWidth: CGFloat {
+    get {
+      return XScreen.main.bounds.width
+    }
+  }
+  
+  var screenHeight: CGFloat {
+    get {
+      return XScreen.main.bounds.height
+    }
+  }
+
+}
+
+// MARK: - Member Methods
+
+extension XViewController {
+
+  func removeAllSubviewOf(_ parentView: XView) {
+    let subviews = parentView.subviews
+    for subview in subviews {
+      subview.removeFromSuperview()
+    }
+  }
+
+  func removeAllSubview() {
+    self.removeAllSubviewOf(self.view)
+  }
+
 }

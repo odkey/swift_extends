@@ -115,15 +115,27 @@ func -(lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
 }
 
 func *(lhs: SCNVector3, rhs: Float) -> SCNVector3 {
+  #if os(OSX)
   return SCNVector3(lhs.x * CGFloat(rhs), lhs.y * CGFloat(rhs), lhs.z * CGFloat(rhs))
+  #elseif os(iOS)
+  return SCNVector3(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs)
+  #endif
 }
 
 func *(lhs: Float, rhs: SCNVector3) -> SCNVector3 {
+  #if os(OSX)
   return SCNVector3(CGFloat(lhs) * rhs.x, CGFloat(lhs) * rhs.y, CGFloat(lhs) * rhs.z)
+  #elseif os(iOS)
+  return SCNVector3(lhs * rhs.x, lhs * rhs.y, lhs * rhs.z)
+  #endif
 }
 
 func /(lhs: SCNVector3, rhs: Float) -> SCNVector3 {
+  #if os(OSX)
   return SCNVector3(lhs.x / CGFloat(rhs), lhs.y / CGFloat(rhs), lhs.z / CGFloat(rhs))
+  #elseif os(iOS)
+  return SCNVector3(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs)
+  #endif
 }
 
 func +=( lhs: inout SCNVector3, rhs: SCNVector3) {

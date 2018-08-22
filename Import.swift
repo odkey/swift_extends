@@ -1,10 +1,10 @@
 //
-//  UIViewController+Util.swift
+//  SCNNode+Util.swift
 //
-//  Created by Yota Odaka on 2017/10/02.
+//  Created by Yota Odaka on 2018/08/22.
 //
 //  The MIT License (MIT)
-//  Copyright (c) 2017 Yota Odaka
+//  Copyright (c) 2018 Yota Odaka
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the “Software”),
@@ -25,51 +25,28 @@
 //  IN THE SOFTWARE.
 //
 
+#if os(iOS)
+
 import UIKit
+typealias XView = UIView
+typealias XImage = UIImage
+typealias XColor = UIColor
+typealias XFont = UIFont
+typealias XScreen = UIScreen
+typealias XBezierPath = UIBezierPath
+typealias XScrollView = UIScrollView
+typealias XViewController = UIViewController
 
-// MARK: - Member Variables
+#elseif os(macOS)
 
-extension UIViewController {
+import Cocoa
+typealias XView = NSView
+typealias XImage = NSImage
+typealias XColor = NSColor
+typealias XFont = NSFont
+typealias XScreen = NSScreen
+typealias XBezierPath = NSBezierPath
+typealias XScrollView = NSScrollView
+typealias XViewController = NSViewController
 
-  var boundsWidth: CGFloat {
-    get {
-      return self.view.bounds.width
-    }
-  }
-  
-  var boundsHeight: CGFloat {
-    get {
-      return self.view.bounds.height
-    }
-  }
-  
-  var screenWidth: CGFloat {
-    get {
-      return UIScreen.main.bounds.width
-    }
-  }
-  
-  var screenHeight: CGFloat {
-    get {
-      return UIScreen.main.bounds.height
-    }
-  }
-
-}
-
-// MARK: - Member Methods
-
-extension UIViewController {
-
-  func removeAllSubviewOf(_ parentView: UIView) {
-    let subviews = parentView.subviews
-    for subview in subviews {
-      subview.removeFromSuperview()
-    }
-  }
-
-  func removeAllSubview() {
-    self.removeAllSubviewOf(self.view)
-  }
-
-}
+#endif

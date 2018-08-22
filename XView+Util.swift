@@ -1,7 +1,7 @@
 //
-//  SCNNode+Util.swift
+//  UIView+Util.swift
 //
-//  Created by Yota Odaka on 2018/02/25.
+//  Created by Yota Odaka on 2017/10/02.
 //
 //  The MIT License (MIT)
 //  Copyright (c) 2017 Yota Odaka
@@ -25,20 +25,14 @@
 //  IN THE SOFTWARE.
 //
 
-import SceneKit
+// MARK: - Member Methods
 
-extension SCNNode {
+extension XView {
 
-  func searchFirstAncestorWithName(_ name: String) -> SCNNode? {
-    guard let parent = self.parent else { return nil }
-    if parent.name == name { return parent }
-    return parent.searchFirstAncestorWithName(name)
-  }
-
-  func searchSelfOrFirstAncestorWithName(_ name: String) -> SCNNode? {
-    if self.name == name { return self }
-    guard let parent = self.parent else { return nil }
-    return parent.searchSelfOrFirstAncestorWithName(name)
+  func removeAllSubview() {
+    self.subviews.forEach({
+      $0.removeFromSuperview()
+    })
   }
 
 }

@@ -25,25 +25,39 @@
 //  IN THE SOFTWARE.
 //
 
-import UIKit
+import CoreImage
+import CoreGraphics
 import AVFoundation
+
+#if os(iOS)
+import UIKit
+#endif
+
 
 // MARK: - Member Methods
 
-extension UIImage {
+extension XImage {
 
-  func resize(ratio: CGFloat) -> UIImage {
+  func resize(ratio: CGFloat) -> XImage {
     let resizedSize = CGSize(width: Int(self.size.width * ratio),
                              height: Int(self.size.height * ratio))
+    #if os(OSX)
+//    UIGraphicsBeginImageContextWithOptions(resizedSize, false, 2)
+    var resizedImage = NSImage(size: resizedSize)
+    print("[XImage+Util.swift] resize() method is not yet supported")
+    return XImage()
+    #elseif os(iOS)
     UIGraphicsBeginImageContextWithOptions(resizedSize, false, 2)
+    
     draw(in: CGRect(x: 0, y: 0,
                     width: resizedSize.width, height: resizedSize.height))
     let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return resizedImage!
+    #endif
   }
   
-  static func imageBufferToUIImage(pixelBuffer: CVPixelBuffer) -> UIImage {
+  static func imageBufferToUIImage(pixelBuffer: CVPixelBuffer) -> XImage {
     let ciImage = CIImage.init(cvPixelBuffer: pixelBuffer)
     
     let pixelBufferWidth = CGFloat(CVPixelBufferGetWidth(pixelBuffer))
@@ -55,12 +69,12 @@ extension UIImage {
     
     let cgImage = ciContext.createCGImage(ciImage, from: imageRect )
     
-    let image = UIImage(cgImage: cgImage!)
+    let image = XImage(cgImage: cgImage!)
     return image
     
   }
   
-  static func sampleBufferToUIImage(sampleBuffer: CMSampleBuffer) -> UIImage {
+  static func sampleBufferToUIImage(sampleBuffer: CMSampleBuffer) -> XImage {
     let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
     CVPixelBufferLockBaseAddress(imageBuffer!,
                                  CVPixelBufferLockFlags(rawValue: 0))
@@ -79,7 +93,7 @@ extension UIImage {
     let quartzImage = context!.makeImage()
     CVPixelBufferUnlockBaseAddress(imageBuffer!,
                                    CVPixelBufferLockFlags(rawValue: 0))
-    let image = UIImage(cgImage: quartzImage!)
+    let image = XImage(cgImage: quartzImage!)
     return image
   }
   
