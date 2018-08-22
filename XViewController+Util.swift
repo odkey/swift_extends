@@ -45,13 +45,21 @@ extension XViewController {
   
   var screenWidth: CGFloat {
     get {
+      #if os(OSX)
+      return (XScreen.main?.frame.width)!
+      #elseif os(iOS)
       return XScreen.main.bounds.width
+      #endif
     }
   }
   
   var screenHeight: CGFloat {
     get {
+      #if os(OSX)
+      return (XScreen.main?.frame.height)!
+      #elseif os(iOS)
       return XScreen.main.bounds.height
+      #endif
     }
   }
 

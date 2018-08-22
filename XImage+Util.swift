@@ -43,7 +43,7 @@ extension XImage {
                              height: Int(self.size.height * ratio))
     #if os(OSX)
 //    UIGraphicsBeginImageContextWithOptions(resizedSize, false, 2)
-    var resizedImage = NSImage(size: resizedSize)
+    var resizedImage = XImage(size: resizedSize)
     print("[XImage+Util.swift] resize() method is not yet supported")
     return XImage()
     #elseif os(iOS)
@@ -69,7 +69,11 @@ extension XImage {
     
     let cgImage = ciContext.createCGImage(ciImage, from: imageRect )
     
+    #if os(OSX)
+    let image = XImage(cgImage: cgImage!, size: imageRect.size)
+    #elseif os(iOS)
     let image = XImage(cgImage: cgImage!)
+    #endif
     return image
     
   }
@@ -93,7 +97,12 @@ extension XImage {
     let quartzImage = context!.makeImage()
     CVPixelBufferUnlockBaseAddress(imageBuffer!,
                                    CVPixelBufferLockFlags(rawValue: 0))
+    #if os(OSX)
+    let image = XImage(cgImage: quartzImage!,
+                       size: CGSize(width: width, height: height))
+    #elseif os(iOS)
     let image = XImage(cgImage: quartzImage!)
+    #endif
     return image
   }
   
