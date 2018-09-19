@@ -59,5 +59,33 @@ class Odkey {
     }
     
   } // class Numeric
+  
+  class Filter {
+  
+    class RC {
+      
+      private(set) var value: Float?
+      public var alpha: Float = 0.5 {
+        didSet {
+          self.alpha = self.alpha > 1.0 ? 1.0 : self.alpha
+          self.alpha = self.alpha < 0.0 ? 0.0 : self.alpha
+        }
+      }
+      
+      func addNewValue(newValue: Float) {
+        guard let v = self.value else {
+          self.value = newValue
+          return
+        }
+        self.value = v * alpha + newValue * (1.0 - alpha)
+      }
+      
+      func reset() {
+        self.value = nil
+      }
+      
+    } // class RC
+  
+  } // class Filter
 
 } // class Odkey
