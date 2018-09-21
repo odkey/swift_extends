@@ -31,6 +31,8 @@ import AVFoundation
 
 #if os(iOS)
 import UIKit
+#elseif os(OSX)
+import AppKit
 #endif
 
 
@@ -124,13 +126,26 @@ extension XImage {
 
     context?.translateBy(x: 0, y: self.size.height)
     context?.scaleBy(x: 1.0, y: -1.0)
-
+    #if os(iOS)
     UIGraphicsPushContext(context!)
     self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
     UIGraphicsPopContext()
+    #elseif os(OSX)
+    context?.draw(self.toCGImage, in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+    #endif
     CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
 
     return pixelBuffer
   }
+  
+  #if os(OSX)
+  var toCGImage: CGImage {
+    var imageRect = NSRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
+    guard let image = cgImage(forProposedRect: &imageRect, context: nil, hints: nil) else {
+      abort()
+    }
+    return image
+  }
+  #endif
   
 }
